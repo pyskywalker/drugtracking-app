@@ -60,6 +60,7 @@ class UserProfileView(generics.ListAPIView):
     serializer_class = UserProfileSerializer
 
 class LoggedUserProfile(generics.RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = UserProfile.objects  
     serializer_class = UserProfileSerializer
     def get_object(self):
