@@ -8,4 +8,14 @@ urlpatterns = [
     path('pharmacy/medicine',MedicineAPI.as_view(),name="medicine"),
     path('pharmacy/batches',BatchAPI.as_view(),name="batch"),
     path('pharmacy/suppliers',SupplierAPI.as_view(),name="suppliers"),
+    path('sales/orders',OrderAPI.as_view(),name="orders"),
+    path('sales/ordereditems',OrderedItemAPI.as_view(),name="items"),
+    path('sales/invoices',InvoiceAPI.as_view(),name="ordeinvoicers"),
+    #path('Appointment',AppointmentAPI.as_view(),name="appointment"),
+    path('sales/transactions',TransactionAPI.as_view(),name="transactions"),
+    path('hospital/patients',PatientAPI.as_view(),name="patients"),
+    path('hospital/appointments',AppointmentAPI.as_view(),name="appointment"),
+    path('hospital/labtests',LabtestAPI.as_view(),name="labtests"),
+    path('hospital/labitems',LabItemAPI.as_view(),name="labitems"),
+
 ]
