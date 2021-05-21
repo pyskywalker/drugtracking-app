@@ -6,5 +6,5 @@ from Hospital.views import LoginAPI
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('apis/v1/hospital/',include('Hospital.urls')),
-    path('apis/v1/login/',LoginAPI.as_view(),name="login")
+    path('apis/v1/hospital/login/',LoginAPI.as_view(),name="login")
 ]
