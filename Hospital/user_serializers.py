@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserProfile,HospitalRoom,UserType
+from .user_models import UserProfile,HospitalRoom,UserType
 from django.contrib.auth.models import User
 
 class RegisterSerializer(serializers.ModelSerializer):
