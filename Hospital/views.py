@@ -54,8 +54,8 @@ class UsersView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class UserProfileView(generics.ListAPIView):
-    permission_classes=[IsAuthenticated,]
+class UserProfileView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
@@ -64,8 +64,7 @@ class LoggedUserProfile(generics.RetrieveAPIView):
     queryset = UserProfile.objects  
     serializer_class = UserProfileSerializer
     def get_object(self):
-        queryset = self.get_queryset()
-        obj = get_object_or_404(queryset, actual_user=self.request.user)
+        obj = get_object_or_404(self.queryset, actual_user=self.request.user)
         return obj
     # def get_queryset(self):
     #     return self.queryset.filter(actual_user=self.request.user)
