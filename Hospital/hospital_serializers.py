@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .hospital_models import PatientType,Patient,Appointment,Labtest,LabTestItem,Diagnoses
+from .hospital_models import *
 from .user_serializers import UserProfileSerializer,UserSerializer
 # from Pharmacy.serializers import MedicineBrandSerializer
 from rest_framework import serializers
@@ -28,8 +28,8 @@ class LabTestItemSerializer(serializers.ModelSerializer):
     class Meta:
         model=LabTestItem
         fields='__all__'
-class DiagnosesSerializer(serializers.ModelSerializer):
+class DiagnosisSerializer(serializers.ModelSerializer):
     # appointment=AppointmentSerializer()
     class Meta:
-        model=Diagnoses
+        model=Diagnosis
         fields='__all__'

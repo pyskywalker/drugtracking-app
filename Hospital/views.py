@@ -18,7 +18,7 @@ from .sales_models import *
 from .hospital_models import *
 from .pharmacy_serializers import *
 from .hospital_serializers import *
-from .user_serializers import UserProfileSerializer, UserSerializer,HospitalRoomsSerializer
+from .user_serializers import *
 from .sales_serializers import *
 # Create your views here.
 #USER APIS
@@ -113,8 +113,8 @@ class LabItemAPI(generics.ListCreateAPIView):
     serializer_class=LabTestItemSerializer
 class DiagnosesAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset=Diagnoses.objects.all()
-    serializer_class=DiagnosesSerializer
+    queryset=Diagnosis.objects.all()
+    serializer_class=DiagnosisSerializer
 # class MedicineDetailView(generics.RetrieveCreateDestroyAPIView):
 #     permission_classes=(IsAuthenticated,)
 #     def query_set(id):

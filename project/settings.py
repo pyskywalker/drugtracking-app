@@ -15,6 +15,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'DTS',
     'Hospital',
     'rest_framework',
     'knox',

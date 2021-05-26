@@ -83,7 +83,7 @@ class LabTestItem(models.Model):
     def __str__(self):
         return f"{self.name} {self.labtest}"
 
-class Diagnoses(models.Model):
+class Diagnosis(models.Model):
     appointment=models.ForeignKey(Appointment,on_delete=models.CASCADE)
     diagnoses=models.TextField(null=True)
     complaints=models.TextField()

@@ -8,7 +8,7 @@ from .sales_models import *
 usermodels=[UserProfile,UserType,HospitalRoom]
 salesmodels=[Order,Transaction,OrderType,OrderedItem,Invoice,AppointmentFee]
 pharmamodels=[MedicineBrand,Batch,Medicine,MSDZone,Supplier]
-hospitalmodels=[Patient,PatientType,Appointment,Labtest,LabTestItem,Diagnoses]
+hospitalmodels=[Patient,PatientType,Appointment,Labtest,LabTestItem,Diagnosis]
 mymodels=usermodels+pharmamodels+hospitalmodels
 for model in mymodels:
     admin.site.register(model)
