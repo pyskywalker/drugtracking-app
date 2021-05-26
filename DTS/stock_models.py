@@ -36,9 +36,8 @@ class Batch(models.Model):
 
 class Medicine(models.Model):
     def generate_num():
-        
         serials=[]
-        new=list(Medicine.objects.values_list('reference_number'))
+        new=list(Medicine.objects.values_list('serial_number'))
         for n in new:
             for l in n:
                 serials.append(l)
