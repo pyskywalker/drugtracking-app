@@ -7,7 +7,7 @@ from .hub_models import *
 hubmodels=[Location]
 transactionmodels=[Transaction]
 stockmodels=[Batch,Medicine]
-usermodels=[Designation,Profile]
+usermodels=[UserType,Profile]
 
 mymodels=usermodels+stockmodels+hubmodels+transactionmodels
 for model in mymodels:
