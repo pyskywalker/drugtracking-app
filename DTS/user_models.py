@@ -11,7 +11,7 @@ class UserType(models.Model):
     def __str__(self):
         return f'{self.id}:{self.name}'
 
-class Profile(models.Model):
+class UserProfile(models.Model):
     actual_user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='system_users')
     title=models.CharField(max_length=30)
     location=models.ForeignKey(Location,on_delete=models.DO_NOTHING,null=True)
