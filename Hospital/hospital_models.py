@@ -1,5 +1,5 @@
 from django.db import models
-from .user_models import  UserProfile as User
+from .user_models import UserProfile as User
 import random
 import sys
 
@@ -50,13 +50,11 @@ class Patient(models.Model):
 class Appointment(models.Model):
     patient_number=models.ForeignKey(Patient,on_delete=models.PROTECT)
     appointment_number=models.IntegerField()
-    dob=models.CharField(max_length=10)
-    type_id=models.ForeignKey(PatientType,on_delete=models.PROTECT)
     address=models.CharField(max_length=20)
     contacts=models.CharField(max_length=20)
-    is_active=models.BooleanField(default=True)
-    is_paid=models.BooleanField(default=True)
-    date_of_appointment=models.CharField(max_length=20)
+    status_options=(('pending','Pending'),('active','Active'),('complete','Complete'))
+    status=models.CharField(max_length=10,choices = status_options,default='pending')
+    date_of_appointment=models.DateField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     description=models.TextField(null=True, blank=True)

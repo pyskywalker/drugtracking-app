@@ -1,14 +1,34 @@
-# from django.db import models
-# from Pharmacy.models import Supplier, Medicine
-# from Hospital.models import Patient
+from django.db.models.deletion import DO_NOTHING, PROTECT
+from DTS.stock_models import Medicine
+from django.db import models
+from .stock_models import Medicine
+# from .models import Patient
+import random
 
-# class OrderType(models.Model):
-#     name=models.CharField(max_length=40)
-#     description=models.TextField()
-#     date_added=models.DateTimeField(auto_now_add=True)
-#     date_modified=models.DateTimeField(auto_now=True)
-#     def __str__(self):
-#         return f'{self.id}'
+class Transaction(models.Model):
+    def generate_num():
+        
+        serials=[]
+        new=list(Transaction.objects.values_list('reference_number'))
+        for n in new:
+            for l in n:
+                serials.append(l)
+        not_unique = True
+        while not_unique:
+            x = f'SN{random.randint(10000000,99999999)}'
+            if x not in serials:
+                not_unique=False
+        return x
+    reference_number=models.CharField(max_length=10,blank=True,editable=False,unique=True,default=generate_num)
+    transaction_type=models.CharField(max_length=30)
+    medicine=models.ForeignKey(Medicine,on_delete=DO_NOTHING)
+    description=models.TextField()
+    quantity_measure=models.CharField(max_length=2)
+    quantity=models.IntegerField()
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'{self.reference_number}'
 
 # class Order(models.Model):
 #     reference_number=models.IntegerField()

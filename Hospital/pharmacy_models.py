@@ -23,7 +23,7 @@ class MedicineBrand(models.Model):
     
 
 class Batch(models.Model):
-    batch_number=models.IntegerField()
+    batch_number=models.IntegerField(unique=True)
     medicine_brand=models.ForeignKey(MedicineBrand,on_delete=models.PROTECT)
     medicine_name=models.CharField(max_length=30)
     description=models.TextField(null=True, blank=True)

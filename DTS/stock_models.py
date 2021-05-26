@@ -1,8 +1,6 @@
 from django.db import models
-
-# Create your models here.
-from django.utils import timezone
-from .user_models import UserProfile as User
+from .user_models import Profile as User
+import random
 
 # Create your models here.
 # class MSDZone(models.Model):
@@ -37,7 +35,21 @@ class Batch(models.Model):
    
 
 class Medicine(models.Model):
-    serial_number=models.CharField(max_length=20)
+    def generate_num():
+        
+        serials=[]
+        new=list(Medicine.objects.values_list('reference_number'))
+        for n in new:
+            for l in n:
+                serials.append(l)
+        not_unique = True
+        while not_unique:
+            x = f'SN{random.randint(10000000,99999999)}'
+            if x not in serials:
+                not_unique=False
+        return x
+    serial_number=models.CharField(max_length=10,blank=True,editable=False,unique=True,default=generate_num)
+    tmda_verified=models.BooleanField()
     unit_of_measure = models.CharField(max_length=2)
     quantity=models.IntegerField()
     used=models.IntegerField()
@@ -47,7 +59,7 @@ class Medicine(models.Model):
     batch=models.ForeignKey(Batch, on_delete=models.CASCADE)
     on_route=models.BooleanField()
     def __str__(self):
-        return f'{self.serialnumber}'
+        return f'{self.serial_number}'
    
 
 # class Supplier(models.Model):
