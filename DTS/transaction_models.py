@@ -2,7 +2,6 @@ from django.db.models.deletion import DO_NOTHING, PROTECT
 from DTS.stock_models import Medicine
 from django.db import models
 from .stock_models import Medicine
-# from .models import Patient
 import random
 
 class Transaction(models.Model):
