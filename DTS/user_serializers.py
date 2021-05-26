@@ -1,4 +1,4 @@
-from Hospital.user_models import UserProfile
+from .user_models import Profile
 from rest_framework import serializers
 from .user_models import *
 from knox.models import AuthToken
