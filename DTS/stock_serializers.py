@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .stock_models import Medicine,Batch
-from .user_models import UserProfile
+from .user_models import Profile
 
 # class MedicineBrandSerializer(serializers.ModelSerializer):
 #     class Meta:
