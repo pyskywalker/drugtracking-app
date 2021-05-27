@@ -1,5 +1,5 @@
 from django.db import models
-from .user_models import UserProfile as User
+from .user_models import Profile as User
 import random
 
 # Create your models here.
