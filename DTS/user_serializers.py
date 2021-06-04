@@ -1,6 +1,7 @@
 from django.db.models import fields
-from .user_models import Profile
+from .user_models import UserProfile
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from .user_models import *
 from knox.models import AuthToken
 
@@ -17,6 +18,10 @@ class UserTypeSerializer(serializers.ModelSerializer):
         model=UserType
         fields="__all__"
 class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        models=User
+        fields='__all__'
+class UserProfileSerializer(serializers.ModelSerializer):
     usertype_name=serializers.CharField(source="user_type.name",read_only=True)
     first_name=serializers.CharField(source="actual_user.first_name",read_only=True)
     username=serializers.CharField(source="actual_user.username",read_only=True)

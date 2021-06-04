@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
 from rest_framework import status,generics
-from rest_framework.response import Response
 from Hospital.user_models import UserProfile, HospitalRoom
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from knox.views import LoginView as KnoxLoginView
@@ -9,8 +7,6 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox import views as knox_views
 from django.http import HttpResponse
 from django.contrib.auth import login
-from knox.models import AuthToken
-from rest_framework import request
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .pharmacy_models import *
@@ -154,6 +150,6 @@ class InvoiceAPI(generics.ListCreateAPIView):
 #     serializer_class=AppointmentSerializer
 class TransactionAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset=Invoice.objects.all()
+    queryset=Transaction.objects.all()
     serializer_class=TransactionSerializer
 
