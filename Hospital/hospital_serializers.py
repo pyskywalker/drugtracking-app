@@ -14,6 +14,9 @@ class PatientSerializer(serializers.ModelSerializer):
         model=Patient
         fields='__all__'
 class AppointmentSerializer(serializers.ModelSerializer):
+    first_name=serializers.CharField(source="patient_number.first_name",read_only=True)
+    last_name=serializers.CharField(source="patient_number.last_name",read_only=True)
+    patient_sn=serializers.CharField(source="patient_number.serial_number",read_only=True)
     class Meta:
         model=Appointment
         fields='__all__'

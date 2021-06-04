@@ -25,14 +25,22 @@ import random
 
 class Batch(models.Model):
     batch_number=models.IntegerField()
-    TMDA_verified=models.BooleanField(default=True)
+    TMDA_status=models.BooleanField(default=True)
+    manufactured_by=models.CharField(max_length=30)
     description=models.TextField()
     expiry_date=models.CharField(max_length=20)
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.batch_number}'
-   
+
+class MedicineType(models.Model):
+    type_name=models.CharField(max_length=30)
+    description=models.TextField(blank=True,null=True)
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'{self.type_name}'
 
 class Medicine(models.Model):
     def generate_num():
@@ -48,17 +56,19 @@ class Medicine(models.Model):
                 not_unique=False
         return x
     serial_number=models.CharField(max_length=10,blank=True,editable=False,unique=True,default=generate_num)
-    tmda_verified=models.BooleanField()
     unit_of_measure = models.CharField(max_length=2)
     quantity=models.IntegerField()
     used=models.IntegerField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
-    status=models.CharField(max_length=30)
+    stock_status=models.CharField(max_length=30)
     batch=models.ForeignKey(Batch, on_delete=models.CASCADE)
+    medicine_type=models.ForeignKey(MedicineType, on_delete=models.SET_NULL,null=True)
     on_route=models.BooleanField()
     def __str__(self):
         return f'{self.serial_number}'
+
+
    
 
 # class Supplier(models.Model):

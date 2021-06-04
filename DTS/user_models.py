@@ -29,4 +29,4 @@ class UserProfile(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"{self.actual_user.username},{self.title},{self.designation.name}"
+        return f"{self.actual_user.username},{self.title},{self.user_type.name}"

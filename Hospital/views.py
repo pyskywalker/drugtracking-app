@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import status,generics
 from rest_framework.response import Response
-from .user_models import UserProfile, HospitalRoom
+from Hospital.user_models import UserProfile, HospitalRoom
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from knox.views import LoginView as KnoxLoginView
 from rest_framework.authtoken.serializers import AuthTokenSerializer
@@ -14,12 +14,12 @@ from rest_framework import request
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .pharmacy_models import *
-from .sales_models import *
-from .hospital_models import *
-from .pharmacy_serializers import *
-from .hospital_serializers import *
-from .user_serializers import *
-from .sales_serializers import *
+from Hospital.sales_models import *
+from Hospital.hospital_models import *
+from Hospital.pharmacy_serializers import *
+from Hospital.hospital_serializers import *
+from Hospital.user_serializers import UserProfileSerializer,HospitalRoomsSerializer
+from Hospital.sales_serializers import *
 # Create your views here.
 #USER APIS
 class UsersAPI(generics.ListCreateAPIView):
@@ -101,7 +101,15 @@ class PatientAPI(generics.ListCreateAPIView):
     serializer_class=PatientSerializer
 class AppointmentAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset=Appointment.objects.all()
+    queryset=Appointment.objects.filter(status='pending')
+    serializer_class=AppointmentSerializer
+class ActiveAppointmentAPI(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset=Appointment.objects.filter(status='active')
+    serializer_class=AppointmentSerializer
+class CompleteAppointmentAPI(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset=Appointment.objects.filter(status='complete')
     serializer_class=AppointmentSerializer
 class LabtestAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)

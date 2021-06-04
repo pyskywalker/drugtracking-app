@@ -25,7 +25,11 @@ class MedicineBrand(models.Model):
 class Batch(models.Model):
     batch_number=models.IntegerField(unique=True)
     medicine_brand=models.ForeignKey(MedicineBrand,on_delete=models.PROTECT)
+    measure_options=(('ml','ML'),('cp','CP'),('tb','TB'))
+    unit_of_measure = models.CharField(max_length=2, choices=measure_options,default='tb',blank=True)
+    quantity_measure=models.IntegerField()
     medicine_name=models.CharField(max_length=30)
+    manufacturing_date=models.DateField()
     description=models.TextField(null=True, blank=True)
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
@@ -35,8 +39,14 @@ class Batch(models.Model):
 
 class Medicine(models.Model):
     serialnumber=models.IntegerField()
-    unit_of_measure = models.CharField(max_length=2)
     quantity=models.IntegerField()
+    # def quantt(self):
+    #     quantity_one=self.batch.quantity_of_measure
+    #     x=self.quantity*quantity_one
+    #     return x
+    batch=models.ForeignKey(Batch, on_delete=models.CASCADE)
+    t_quantity=models.IntegerField()
+    tq_used=models.IntegerField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     status=models.CharField(max_length=30)

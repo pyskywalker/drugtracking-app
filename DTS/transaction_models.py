@@ -4,6 +4,14 @@ from django.db import models
 from .stock_models import Medicine
 import random
 
+class TransactionType(models.Model):
+    type_name=models.CharField(max_length=20)
+    description=models.TextField(blank=True,null=True)
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'{self.type_name}'
+
 class Transaction(models.Model):
     def generate_num():
         
@@ -19,13 +27,14 @@ class Transaction(models.Model):
                 not_unique=False
         return x
     reference_number=models.CharField(max_length=10,blank=True,editable=False,unique=True,default=generate_num)
-    transaction_type=models.CharField(max_length=30)
+    transaction_type=models.ForeignKey(TransactionType,on_delete=models.SET_NULL,null=True)
     medicine=models.ForeignKey(Medicine,on_delete=DO_NOTHING)
-    description=models.TextField()
+    description=models.TextField(blank=True,null=True)
     quantity_measure=models.CharField(max_length=2)
     quantity=models.IntegerField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
+    is_private=models.BooleanField(default=False,blank=True)
     def __str__(self):
         return f'{self.reference_number}'
 

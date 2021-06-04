@@ -49,12 +49,23 @@ class Patient(models.Model):
 
 class Appointment(models.Model):
     patient_number=models.ForeignKey(Patient,on_delete=models.PROTECT)
-    appointment_number=models.IntegerField()
-    address=models.CharField(max_length=20)
-    contacts=models.CharField(max_length=20)
+    def generate_num():
+        
+        serials=[]
+        new=list(Appointment.objects.values_list('appointment_number'))
+        for n in new:
+            for l in n:
+                serials.append(l)
+        not_unique = True
+        while not_unique:
+            x = f'AP{random.randint(10000000,99999999)}'
+            if x not in serials:
+                not_unique=False
+        return x
+    appointment_number=models.CharField(max_length=10,blank=True,editable=False,unique=True,default=generate_num)
     status_options=(('pending','Pending'),('active','Active'),('complete','Complete'))
-    status=models.CharField(max_length=10,choices = status_options,default='pending')
-    date_of_appointment=models.DateField()
+    status=models.CharField(max_length=10,choices = status_options,default='pending',blank=True)
+    date_of_appointment=models.DateField(auto_now_add=True)
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     description=models.TextField(null=True, blank=True)
