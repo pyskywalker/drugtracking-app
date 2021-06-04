@@ -1,17 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .hub_models import Local,Institute
 # Create your models here.
 
-class Local(models.Model):
-    zone=models.CharField(max_length=30)
-    region=models.CharField(max_length=30)
-    city=models.CharField(max_length=30)
-    region=models.CharField(max_length=30)
-    area=models.CharField(max_length=30)
-    date_added=models.DateTimeField(auto_now_add=True)
-    date_modified=models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return f'{self.area},{self.city},{self.region}'
+
 class UserType(models.Model):
     name=models.CharField(max_length=30)
     description=models.TextField()
@@ -25,7 +17,7 @@ class UserProfile(models.Model):
     title=models.CharField(max_length=30)
     location=models.ForeignKey(Local,on_delete=models.DO_NOTHING,null=True)
     user_type=models.ForeignKey(UserType,on_delete=models.SET_NULL,null=True)
-    organization=models.CharField(max_length=50)
+    organization=models.ForeignKey(Institute,on_delete=models.SET_NULL,null=True)
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     def __str__(self):

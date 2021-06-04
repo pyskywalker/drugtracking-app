@@ -1,7 +1,7 @@
-from django.db.models.deletion import DO_NOTHING, PROTECT
-from DTS.stock_models import Medicine
+from django.db.models.deletion import DO_NOTHING, PROTECT, ProtectedError
 from django.db import models
 from .stock_models import Medicine
+from .hub_models import Institute
 import random
 
 class TransactionType(models.Model):
@@ -35,6 +35,8 @@ class Transaction(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     is_private=models.BooleanField(default=False,blank=True)
+    location_to=models.ForeignKey(Institute,on_delete=models.PROTECT,related_name="destination")
+    location_from=models.ForeignKey(Institute,on_delete=models.PROTECT,related_name="source")
     def __str__(self):
         return f'{self.reference_number}'
 

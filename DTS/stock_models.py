@@ -23,17 +23,6 @@ import random
 #         return f'{self.brand_name}'
     
 
-class Batch(models.Model):
-    batch_number=models.IntegerField()
-    TMDA_status=models.BooleanField(default=True)
-    manufactured_by=models.CharField(max_length=30)
-    description=models.TextField()
-    expiry_date=models.CharField(max_length=20)
-    date_added=models.DateTimeField(auto_now_add=True)
-    date_modified=models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return f'{self.batch_number}'
-
 class MedicineType(models.Model):
     type_name=models.CharField(max_length=30)
     description=models.TextField(blank=True,null=True)
@@ -41,6 +30,19 @@ class MedicineType(models.Model):
     date_modified=models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.type_name}'
+class Batch(models.Model):
+    batch_number=models.IntegerField()
+    TMDA_status=models.BooleanField(default=True)
+    manufactured_by=models.CharField(max_length=30)
+    description=models.TextField()
+    expiry_date=models.CharField(max_length=20)
+    medicine_type=models.ForeignKey(MedicineType, on_delete=models.SET_NULL,null=True)
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'{self.batch_number}'
+
+
 
 class Medicine(models.Model):
     def generate_num():
@@ -61,9 +63,8 @@ class Medicine(models.Model):
     used=models.IntegerField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
-    stock_status=models.CharField(max_length=30)
+    stock_status=models.CharField(max_length=30,blank=True,null=True)
     batch=models.ForeignKey(Batch, on_delete=models.CASCADE)
-    medicine_type=models.ForeignKey(MedicineType, on_delete=models.SET_NULL,null=True)
     on_route=models.BooleanField()
     def __str__(self):
         return f'{self.serial_number}'

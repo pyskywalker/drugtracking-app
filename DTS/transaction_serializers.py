@@ -1,36 +1,24 @@
-# from rest_framework import serializers
-# from .models import Order, OrderedItem,Invoice,OrderType,Invoice,Transaction,AppointmentFee
-# from Pharmacy.serializers import MedicineSerializer,SupplierSerializer
-# from Hospital.serializers import PatientSerializer
+from rest_framework import serializers
+from .transaction_models import *
+#from  import MedicineSerializer,SupplierSerializer
+#from Hospital.serializers import PatientSerializer
 
-# class OrderTypeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=OrderType()
-#         fields="__all__"
-# class OrderSerializer(serializers.ModelSerializer):
-#     order_type=OrderTypeSerializer()
-#     supplier=SupplierSerializer
-#     class Meta:
-#         model=Order
-#         fields="__all__"
+class TransactionSerializer(serializers.ModelSerializer):
+    medicine_id=serializers.IntegerField(source="medicine.id",read_only=True)
+    medicine_sn=serializers.IntegerField(source="medicine.serial_number",read_only=True)
+    medicine_Unit=serializers.IntegerField(source="medicine.unit_of_measure",read_only=True)
+    stock_status=serializers.IntegerField(source="medicine.stock_status",read_only=True)
+    batch_id=serializers.IntegerField(source="medicine.batch.id",read_only=True)
+    batch_number=serializers.IntegerField(source="medicine.batch.batch_number",read_only=True)
+    transaction_type_name=serializers.CharField(source="transaction_type.type_name",read_only=True)
+    destination_name=serializers.CharField(source="destination.name",read_only=True)
+    destination_location=serializers.CharField(source="destination.location.id",read_only=True)
+    source_name=serializers.CharField(source="source.name",read_only=True)
+    source_location=serializers.CharField(source="source.location.id",read_only=True)
     
-# class ItemSerializer(serializers.ModelSerializer):
-#     customer_order=OrderSerializer()
-#     medicine=MedicineSerializer()
-#     class Meta:
-#         model=OrderedItem
-#         fields="__all__"
-
-# class InvoiceSerializer(serializers.ModelSerializer):
-#     order=OrderSerializer()
-#     class Meta:
-#         model=Invoice
-#         fields="__all__"
-
-# class TransactionSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=Transaction
-#         fields="__all__"
+    class Meta:
+        model=Transaction
+        fields="__all__"
 # class AppointmentFeeSerializer(serializers.ModelSerializer):
 #     patient=PatientSerializer()
 #     transaction=TransactionSerializer()
