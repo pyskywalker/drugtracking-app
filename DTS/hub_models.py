@@ -7,7 +7,7 @@ class InstituteType(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified=models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f'{self.area},{self.city},{self.region}'
+        return f'{self.name}'
 class Local(models.Model):
     zone=models.CharField(max_length=30)
     region=models.CharField(max_length=30)
@@ -24,4 +24,4 @@ class Institute(models.Model):
     location=models.ForeignKey(Local,on_delete=models.DO_NOTHING)
     institute_type=models.ForeignKey(InstituteType,on_delete=models.SET_NULL,null=True)
     def __str__(self):
-        return f'{self.name} {self.institute_type.name}'
+        return f'{self.name} {self.location.region}'

@@ -6,7 +6,7 @@ from .stock_models import *
 # Register your models here
 hubmodels=[Local,Institute,InstituteType]
 transactionmodels=[Transaction,TransactionType]
-stockmodels=[Batch,Medicine,MedicineType]
+stockmodels=[Batch,Medicine,MedicineType,Approval]
 usermodels=[UserType,UserProfile]
 
 mymodels=usermodels+stockmodels+hubmodels+transactionmodels

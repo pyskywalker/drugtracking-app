@@ -54,6 +54,11 @@ class BatchAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset=Batch.objects.all()
     serializer_class=BatchSerializer
+
+class MedicineDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=MedicineSerializer
+    lookup_url_kwarg = 'id'
+    queryset=Medicine.objects.all()
 #############################HUB_VIEWS############################
 class InstituteAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)

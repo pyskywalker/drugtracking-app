@@ -31,10 +31,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     is_active=serializers.BooleanField(source="actual_user.is_active",read_only=True)
     usertype_description=serializers.CharField(source="user_type.description",read_only=True)
     password=serializers.CharField(source="actual_user.password",read_only=True)
-    location_zone=serializers.CharField(source="location.zone",read_only=True)
-    location_region=serializers.CharField(source="location.region",read_only=True)
-    location_city=serializers.CharField(source="location.city",read_only=True)
-    location_area=serializers.CharField(source="location.area",read_only=True)
+    location_region=serializers.CharField(source="organization.location.region",read_only=True)
+    location_city=serializers.CharField(source="organization.location.city",read_only=True)
+    organization_name=serializers.CharField(source="organization.name",read_only=True)
+    organization_type=serializers.CharField(source="organization.institute_type.name",read_only=True)
+    
     class Meta:
         model=UserProfile
         fields="__all__"

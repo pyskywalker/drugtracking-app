@@ -6,6 +6,7 @@ urlpatterns = [
     path('userprofile/',LoggedUserProfile.as_view(), name='singleuserprofile'),
     path('userslist/',UserProfileView.as_view(),name="userprofile"),
     path('stock/medicine',MedicineAPI.as_view(),name="medicine"),
+    path('stock/medicine/<int:id>',MedicineDetailView.as_view(),name="medicine"),
     path('stock/batches',BatchAPI.as_view(),name="batch"),
     path('transactions/',TransactionAPI.as_view(),name="transactions"),
     path('transactions/details/',TransactionDetailView.as_view(),name="transaction_details"),

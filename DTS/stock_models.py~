@@ -43,18 +43,17 @@ class MedicineType(models.Model):
         return f'{self.type_name}'
 
 class Approval(models.Model):
-    approver=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    approver=models.ForeignKey(User,on_delete=models.PROTECT)
     status=models.BooleanField(default=False)
     date_approved=models.DateField(null=True,blank=True)
     description=models.TextField(blank=True,null=True)
 class Batch(models.Model):
     medicine_detail=models.ForeignKey(MedicineDetails,on_delete=DO_NOTHING)
     batch_number=models.IntegerField()
-    approval=models.ForeignKey(Approval,on_delete=models.PROTECT)
+    aprroval=models.ForeignKey(Approval,on_delete=models.PROTECT)
     unit_of_measure = models.IntegerField(default=100)
     concentration=models.CharField(max_length=15)
     description=models.TextField(blank=True,null=True)
-    production_date=models.DateField()
     expiry_date=models.DateField()
     medicine_type=models.ForeignKey(MedicineType, on_delete=models.SET_NULL,null=True)
     date_added=models.DateTimeField(auto_now_add=True)
